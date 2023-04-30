@@ -75,8 +75,8 @@ stdlib_examples_list = {
     'div' :     ("Low level HW Divider",    "divider.c",        "hardware/divider.h",   "hardware_divider")
 }
 
-debugger_list = ["SWD", "PicoProbe"]
-debugger_config_list = ["raspberrypi-swd.cfg", "picoprobe.cfg"]
+debugger_list = ["SWD", "PicoProbe", "Raspberry Pi Debug Probe"]
+debugger_config_list = ["raspberrypi-swd.cfg", "picoprobe.cfg", "cmsis-dap.cfg"]
 
 DEFINES = 0
 INITIALISERS = 1
@@ -1135,7 +1135,8 @@ def generateProjectFiles(projectPath, projectName, sdkPath, projects, debugger):
                   '      "executable": "${command:cmake.launchTargetPath}",\n'
                   '      "request": "launch",\n'
                   '      "type": "cortex-debug",\n'
-                  '      "servertype": "openocd",\n'
+                  '      "servertype": "openocd",\n' + \
+                  ('      "serverArgs": ["-c", "adapter speed 5000"],\n' if debugger == 2 else '') + \
                   '      "gdbPath": "gdb-multiarch",\n'
                   '      "device": "RP2040",\n'
                   '      "configFiles": [\n' + \
